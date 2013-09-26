@@ -1,0 +1,8 @@
+Tech Residents AMQP (Gevent) Library
+
+INSTALL:
+pip install git+ssh://dev.techresidents.com/tr/repos/techresidents/lib/python/tramqp_gevent#egg=tramqp_gevent
+
+DEVELOPMENT
+mkvirtualenv tramqp_gevent
+python setup.py develop
