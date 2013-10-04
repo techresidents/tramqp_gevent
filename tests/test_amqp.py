@@ -5,8 +5,8 @@ import gevent
 import testbase
 from tramqp_gevent.config import ConnectionConfig, ExchangeConfig, QueueConfig
 from tramqp_gevent.exceptions import QueueEmpty, QueueStopped
-from tramqp_gevent.consume import ConsumeQueue
-from tramqp_gevent.publish import PublishQueue
+from tramqp_gevent.consume import GConsumeQueue
+from tramqp_gevent.publish import GPublishQueue
 
 class TestQueue(unittest.TestCase):
     
@@ -16,13 +16,13 @@ class TestQueue(unittest.TestCase):
         cls.exchange_config = ExchangeConfig('unittest', 'topic')
         cls.queue_config = QueueConfig()
 
-        cls.publish_queue = PublishQueue(
+        cls.publish_queue = GPublishQueue(
                 sender='unittester',
                 connection_config=cls.connection_config,
                 exchange_config=cls.exchange_config,
                 routing_key='test')
 
-        cls.consume_queue = ConsumeQueue(
+        cls.consume_queue = GConsumeQueue(
                 connection_config=cls.connection_config,
                 exchange_config=cls.exchange_config,
                 queue_config=cls.queue_config,
@@ -71,7 +71,7 @@ class TestQueue(unittest.TestCase):
             self.consume_queue.get(False)
 
     def test_publish_stopped(self):
-        queue = PublishQueue(
+        queue = GPublishQueue(
                 sender='unittester',
                 connection_config=self.connection_config,
                 exchange_config=self.exchange_config)
@@ -123,25 +123,25 @@ class TestJobQueue(unittest.TestCase):
         arguments = {'x-dead-letter-exchange': 'unittest_job', 'x-message-ttl': 1000 }
         cls.retry_queue_config = QueueConfig('unittest_job_retry_queue', durable=True, auto_delete=False,arguments=arguments)
 
-        cls.create_job_queue = PublishQueue(
+        cls.create_job_queue = GPublishQueue(
                 sender='unittester',
                 connection_config=cls.connection_config,
                 exchange_config=cls.exchange_config,
                 routing_key='job.test')
 
-        cls.retry_job_queue = PublishQueue(
+        cls.retry_job_queue = GPublishQueue(
                 sender='unittester',
                 connection_config=cls.connection_config,
                 exchange_config=cls.retry_exchange_config,
                 routing_key='job.retry')
 
-        cls.retry_job_wait_queue = ConsumeQueue(
+        cls.retry_job_wait_queue = GConsumeQueue(
                 connection_config=cls.connection_config,
                 exchange_config=cls.retry_exchange_config,
                 queue_config=cls.retry_queue_config,
                 routing_keys=['job.*'])
 
-        cls.job_queue = ConsumeQueue(
+        cls.job_queue = GConsumeQueue(
                 connection_config=cls.connection_config,
                 exchange_config=cls.exchange_config,
                 queue_config=cls.queue_config,

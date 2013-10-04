@@ -71,10 +71,10 @@ class MessageContextManager(object):
         self.ack_queue.put((False, self.amqp_msg))
     
 
-class ConsumeQueue(object):
+class GConsumeQueue(object):
     """Queue for async AMQP message consumption.
 
-    ConsumeQueue allows users to get() messages from an
+    GConsumeQueue allows users to get() messages from an
     AMQP queue. Note that get() will return a MessageContextManager
     wrapping a message_class object. The context manager
     will ensure that an AMQP ack/nack is sent when the message
@@ -104,7 +104,7 @@ class ConsumeQueue(object):
             queue_class=Queue.Queue,
             message_class=Message,
             debug=False):
-        """ConsumeQueue constructor.
+        """GConsumeQueue constructor.
 
         Args:
             connection_config: AMQP ConnectionConfig object

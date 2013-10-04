@@ -31,7 +31,7 @@ class PublishItem(object):
         self.routing_key = routing_key
         self.result = AsyncResult()
 
-class PublishQueue(object):
+class GPublishQueue(object):
     """Queue for async AMQP message publishing.
 
     PublishQueue allows users to put messages to a local
@@ -60,7 +60,7 @@ class PublishQueue(object):
             queue_class=Queue.PriorityQueue,
             message_class=Message,
             debug=False):
-        """PublishQueue constructor.
+        """GPublishQueue constructor.
 
         Args:
             sender: arbitrary string to use in Message.header
@@ -494,10 +494,10 @@ class PublishQueue(object):
                 break
 
     def _keep_running(self):
-        """Check if PublishQueue should keep running.
+        """Check if GPublishQueue should keep running.
 
         Returns:
-            True if PublishQueue should keep running, False otherwise.
+            True if GPublishQueue should keep running, False otherwise.
         """
 
         #don't exit until stop() has been called, queue is empty,
