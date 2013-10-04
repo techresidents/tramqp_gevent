@@ -1,0 +1,6 @@
+greenlet==0.4.0
+gevent==0.13.7
+haigha==0.6.1
+
+git+ssh://dev.techresidents.com/tr/repos/techresidents/lib/python/trpycore.git@integration#egg=trpycore
+git+ssh://dev.techresidents.com/tr/repos/techresidents/lib/python/tramqp.git@integration#egg=tramqp

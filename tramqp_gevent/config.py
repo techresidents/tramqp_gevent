@@ -1,0 +1,1 @@
+from tramqp.config import *
