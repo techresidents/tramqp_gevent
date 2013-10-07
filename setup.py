@@ -5,7 +5,7 @@ import ez_setup
 ez_setup.use_setuptools()
 
 setup(
-    name='tramqp',
+    name='tramqp_gevent',
     version = '0.1-SNAPSHOT',
     author = 'Tech Residents, Inc.',
     packages = find_packages(),
